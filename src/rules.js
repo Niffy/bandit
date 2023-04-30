@@ -13,19 +13,8 @@ export const rules = {
  * @returns {Boolean} True if all the characters are the same, false if not
  */
 export function hasSameCharacters (slots) {
-  /*
-   * Get the first slot, then loop over the remaining slots to check if they match
-   * as soon as we don't have a match breakout the loop and return the result
-   */
-  const firstChar = slots[0]
-  let match = true
-  for (let index = 1; index < slots.length; index++) {
-    if (slots[index] !== firstChar) {
-      match = false
-      break
-    }
-  }
-  return match
+  const result = new Set(slots)
+  return (result.size === 1)
 }
 
 /**
