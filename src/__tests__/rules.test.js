@@ -139,4 +139,33 @@ describe('Adjacent Characters', () => {
     const result = adjacentCharacters(slots)
     expect(result).toEqual(true)
   })
+
+  it('Should return false when 2 slots not adjancent have the same character', () => {
+    const slots = [reelOptions[0], reelOptions[1], reelOptions[2], reelOptions[0]]
+    const result = adjacentCharacters(slots)
+    expect(result).toEqual(false)
+  })
+})
+
+describe('Checking all rules', () => {
+  it('Should return correct result when all slots are the same', () => {
+    const slots = allTheSame()
+    expect(checkSlots(slots)).toEqual(rules.HAS_SAME_CHARACTERS.result)
+  })
+
+  it('Should return correct result when all slots are different', () => {
+    const slots = allDifferent()
+    expect(checkSlots(slots)).toEqual(rules.HAS_DIFFERENT_CHARACTERS.result)
+  })
+
+  it('Should return correct result when there are adjacent slots', () => {
+    const slots = allDifferent()
+    slots[1] = slots[2] = reelOptions[1]
+    expect(checkSlots(slots)).toEqual(rules.ADJACENT_CHARACTERS.result)
+  })
+
+  it('Should return no result when no rule is matched', () => {
+    const slots = [reelOptions[0], reelOptions[1], reelOptions[2], reelOptions[0]]
+    expect(checkSlots(slots)).toEqual('NO_RESULT')
+  })
 })
