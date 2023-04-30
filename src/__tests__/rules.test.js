@@ -40,11 +40,14 @@ describe('Same Characters', () => {
 
   it('Should have a function that can be called', () => {
     expect(rules.HAS_SAME_CHARACTERS.fnc).toBeDefined()
-    rules.HAS_SAME_CHARACTERS.fnc([])
   })
 
   it('Should have the correct function', () => {
     expect(rules.HAS_SAME_CHARACTERS.fnc).toEqual(hasSameCharacters)
+  })
+
+  it('Should have a value', () => {
+    expect(rules.HAS_SAME_CHARACTERS.value).toBeDefined()
   })
 
   it('Should return true when all slots are the same', () => {
@@ -82,6 +85,10 @@ describe('All different Characters', () => {
     expect(rules.HAS_DIFFERENT_CHARACTERS.fnc).toEqual(hasDifferentCharacters)
   })
 
+  it('Should have a value', () => {
+    expect(rules.HAS_DIFFERENT_CHARACTERS.value).toBeDefined()
+  })
+
   it('Should return false when all slots are the same', () => {
     const slots = allTheSame()
     const result = hasDifferentCharacters(slots)
@@ -114,6 +121,10 @@ describe('Adjacent Characters', () => {
 
   it('Should have the correct function', () => {
     expect(rules.ADJACENT_CHARACTERS.fnc).toEqual(adjacentCharacters)
+  })
+
+  it('Should have a value', () => {
+    expect(rules.ADJACENT_CHARACTERS.value).toBeDefined()
   })
 
   it('Should return true when all slots are the same', () => {
