@@ -35,3 +35,16 @@ export function randomCharacter () {
   const index = randomNumber()
   return reelOptions[index]
 }
+
+/**
+ * Get the reels for a slot machine
+ * @param {Number} slotCount Number of slots to populate, defaults to 4
+ * @returns {String[]} Array of strings that contains the characters for the slot machine
+ */
+export function getRandomSlots (slotCount = 4) {
+  const slots = []
+  for (let index = 0; index < slotCount; index++) {
+    slots.push(randomCharacter())
+  }
+  return slots
+}

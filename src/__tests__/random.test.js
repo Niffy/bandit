@@ -1,4 +1,6 @@
-import { randomNumber, randomCharacter } from '../random.js'
+import { randomNumber, randomCharacter, getRandomSlots } from '../random.js'
+
+const reelOptions = ['A', 'B', 'C', 'D', 'E']
 
 it('Returns a random number', () => {
   expect(randomNumber()).toBeDefined()
@@ -36,7 +38,6 @@ it('Should return a random characters', () => {
 })
 
 it('Should return a random character between A and E', () => {
-  const options = ['A', 'B', 'C', 'D', 'E']
   /**
    * Here we want to generate at least 200 characters so we get a good
    * idea that we are actually within our range of A to E
@@ -45,12 +46,41 @@ it('Should return a random character between A and E', () => {
   let withinRange = true
   for (let index = 0; index < count; index++) {
     const character = randomCharacter()
-    if (options.indexOf(character) === -1) {
+    if (reelOptions.indexOf(character) === -1) {
       // We are not within our range of A-E
       withinRange = false
       break
     }
   }
 
+  expect(withinRange).toBe(true)
+})
+
+it('Should be defined', () => {
+  expect(getRandomSlots).toBeDefined()
+})
+
+it('Should return something', () => {
+  expect(getRandomSlots()).toBeDefined()
+})
+
+it('Should return a default of 4 slots', () => {
+  expect(getRandomSlots().length).toEqual(4)
+})
+
+it('Should return 2 slots', () => {
+  expect(getRandomSlots(2).length).toEqual(2)
+})
+
+it('Should return 4 slots, each slot within range', () => {
+  const result = getRandomSlots(4)
+  let withinRange = true
+  for (let index = 0; index < result.length; index++) {
+    const element = result[index]
+    if (reelOptions.indexOf(element) === -1) {
+      withinRange = false
+      break
+    }
+  }
   expect(withinRange).toBe(true)
 })
