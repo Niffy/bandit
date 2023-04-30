@@ -1,6 +1,6 @@
 import { randomNumber, randomCharacter, getRandomSlots } from '../random.js'
 
-const reelOptions = ['A', 'B', 'C', 'D', 'E']
+import { reelOptions } from '../reel.js'
 
 it('Returns a random number', () => {
   expect(randomNumber()).toBeDefined()

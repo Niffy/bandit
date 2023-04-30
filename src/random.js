@@ -1,7 +1,7 @@
 /**
  * The options for the slot machine reel
  */
-const reelOptions = ['A', 'B', 'C', 'D', 'E']
+import { reelOptions } from './reel'
 
 /**
  * Return a number between 0 and 4
