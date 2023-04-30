@@ -26,3 +26,12 @@ export function randomNumber () {
   }
   return 0
 }
+
+/**
+ * Get a random character between A and E, in upper case
+ * @returns {String} The random character
+ */
+export function randomCharacter () {
+  const index = randomNumber()
+  return reelOptions[index]
+}

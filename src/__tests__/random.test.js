@@ -1,4 +1,4 @@
-import { randomNumber } from '../random.js'
+import { randomNumber, randomCharacter } from '../random.js'
 
 it('Returns a random number', () => {
   expect(randomNumber()).toBeDefined()
@@ -23,6 +23,30 @@ it('Should have returned many numbers within our range', () => {
     const number = randomNumber()
     if (number > 0 && number > 4) {
       // The number is not within our range so lets just break out the loop now
+      withinRange = false
+      break
+    }
+  }
+
+  expect(withinRange).toBe(true)
+})
+
+it('Should return a random characters', () => {
+  expect(randomCharacter()).toBeDefined()
+})
+
+it('Should return a random character between A and E', () => {
+  const options = ['A', 'B', 'C', 'D', 'E']
+  /**
+   * Here we want to generate at least 200 characters so we get a good
+   * idea that we are actually within our range of A to E
+   */
+  const count = 200
+  let withinRange = true
+  for (let index = 0; index < count; index++) {
+    const character = randomCharacter()
+    if (options.indexOf(character) === -1) {
+      // We are not within our range of A-E
       withinRange = false
       break
     }
