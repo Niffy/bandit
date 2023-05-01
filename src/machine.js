@@ -17,7 +17,28 @@ export class Machine {
   }
 
   handleResult (result) {
+    if (result.value) {
+      const canSubtract = this.canSubtractBalance(result.value)
+      if (canSubtract) {
 
+      } else {
+        //
+      }
+    } else {
+      return constants.NO_RESULT
+    }
+  }
+
+  /**
+   * Can we subtract the given amount from the machine balance
+   * @param {Number} value Value we want to extract from the machine balance
+   * @returns {Boolean} True if we can subtract or false if there isn't a big enough balance
+   */
+  canSubtractBalance (value) {
+    if (this.balance < value) {
+      return false
+    }
+    return true
   }
 
   /**
