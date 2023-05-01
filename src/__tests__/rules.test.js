@@ -5,8 +5,8 @@ import {
   adjacentCharacters,
   checkSlots
 } from '../rules'
-
 import { reelOptions } from '../reel'
+import { constants } from '../constants'
 
 const slotCount = 4
 function allDifferent () {
@@ -161,22 +161,22 @@ describe('Adjacent Characters', () => {
 describe('Checking all rules', () => {
   it('Should return correct result when all slots are the same', () => {
     const slots = allTheSame()
-    expect(checkSlots(slots)).toEqual(rules.HAS_SAME_CHARACTERS.result)
+    expect(checkSlots(slots)).toEqual(rules.HAS_SAME_CHARACTERS)
   })
 
   it('Should return correct result when all slots are different', () => {
     const slots = allDifferent()
-    expect(checkSlots(slots)).toEqual(rules.HAS_DIFFERENT_CHARACTERS.result)
+    expect(checkSlots(slots)).toEqual(rules.HAS_DIFFERENT_CHARACTERS)
   })
 
   it('Should return correct result when there are adjacent slots', () => {
     const slots = allDifferent()
     slots[1] = slots[2] = reelOptions[1]
-    expect(checkSlots(slots)).toEqual(rules.ADJACENT_CHARACTERS.result)
+    expect(checkSlots(slots)).toEqual(rules.ADJACENT_CHARACTERS)
   })
 
   it('Should return no result when no rule is matched', () => {
     const slots = [reelOptions[0], reelOptions[1], reelOptions[2], reelOptions[0]]
-    expect(checkSlots(slots)).toEqual('NO_RESULT')
+    expect(checkSlots(slots)).toEqual({ result: constants.NO_RESULT })
   })
 })

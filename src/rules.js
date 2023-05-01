@@ -60,14 +60,14 @@ export function adjacentCharacters (slots) {
 
 /**
  * Check the given slots matches the set of rules we have
- * @param {Stringp[]} slots Array of characters in the slots
- * @returns {String} The result of checking all the rules
+ * @param {String[]} slots Array of characters in the slots
+ * @returns {Object} The rule and its result
  */
 export function checkSlots (slots) {
   // We're going to loop over these rules
   const ruleSet = [rules.HAS_SAME_CHARACTERS, rules.HAS_DIFFERENT_CHARACTERS, rules.ADJACENT_CHARACTERS]
   // By default we assume there is no result, we will break out of the loop if there is a result
-  let result = constants.NO_RESULT
+  let result = { result: constants.NO_RESULT }
 
   for (let index = 0; index < ruleSet.length; index++) {
     const rule = ruleSet[index]
@@ -75,7 +75,7 @@ export function checkSlots (slots) {
     // to the one defined on the rule and break out
     const ruleResult = rule.fnc(slots)
     if (ruleResult) {
-      result = rule.result
+      result = rule
       break
     }
   }
