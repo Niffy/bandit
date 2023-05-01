@@ -9,9 +9,9 @@ import { getRandomSlots } from './random.js'
 export class Machine {
   /**
    * Create an instance of the machine
-   * @param {Number} startingBalance The starting balance of the user, using GBP pennies eg 20 = 20p, 200 - £2
+   * @param {Number} startingBalance The starting balance of the user, using GBP pennies eg 20 = 20p, 200 - £2, defaults to 0
    */
-  constructor (startingBalance) {
+  constructor (startingBalance = 0) {
     this.userBalance = startingBalance
     this.balance = 2000
   }
@@ -67,7 +67,7 @@ export class Machine {
       // Go and handle the result and do any extra processing such as awarding money or increasing balance
       const result = this.handleResult(ruleResult)
     } else {
-      return 'NO_BALANCE'
+      return constants.USER_BALANCE_ZERO
     }
   }
 }
