@@ -1,12 +1,11 @@
-export const costPerPlay = 20
-
+import { constants, costPerPlay } from './constants'
 /**
  * Rules that can be run
  */
 export const rules = {
-  HAS_SAME_CHARACTERS: { fnc: hasSameCharacters, result: 'HAS_SAME_CHARACTERS', value: 2000 },
-  HAS_DIFFERENT_CHARACTERS: { fnc: hasDifferentCharacters, result: 'HAS_DIFFERENT_CHARACTERS', value: 1000 },
-  ADJACENT_CHARACTERS: { fnc: adjacentCharacters, result: 'ADJACENT_CHARACTERS', value: 5 * costPerPlay }
+  HAS_SAME_CHARACTERS: { fnc: hasSameCharacters, result: constants.HAS_SAME_CHARACTERS, value: 2000 },
+  HAS_DIFFERENT_CHARACTERS: { fnc: hasDifferentCharacters, result: constants.HAS_DIFFERENT_CHARACTERS, value: 1000 },
+  ADJACENT_CHARACTERS: { fnc: adjacentCharacters, result: constants.ADJACENT_CHARACTERS, value: 5 * costPerPlay }
 }
 
 /**
@@ -68,7 +67,7 @@ export function checkSlots (slots) {
   // We're going to loop over these rules
   const ruleSet = [rules.HAS_SAME_CHARACTERS, rules.HAS_DIFFERENT_CHARACTERS, rules.ADJACENT_CHARACTERS]
   // By default we assume there is no result, we will break out of the loop if there is a result
-  let result = 'NO_RESULT'
+  let result = constants.NO_RESULT
 
   for (let index = 0; index < ruleSet.length; index++) {
     const rule = ruleSet[index]
