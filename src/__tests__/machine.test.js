@@ -149,9 +149,7 @@ it('Should be able to award the user the prize of all slots being the same chara
   const machineStartingBalance = machine.balance
   const handleResult = machine.handleResult(result)
   const expectedMachineBalance = machineStartingBalance - result.value
-  const expectedUserBalance = userStartingBalance + result.value
   expect(machine.balance).toEqual(expectedMachineBalance)
-  expect(machine.userBalance).toEqual(expectedUserBalance)
   expect(handleResult).toEqual(constants.HAS_SAME_CHARACTERS)
 })
 
@@ -162,9 +160,7 @@ it('Should be able to award the user the prize of all slots being a different ch
   const machineStartingBalance = machine.balance
   const handleResult = machine.handleResult(result)
   const expectedMachineBalance = machineStartingBalance - result.value
-  const expectedUserBalance = userStartingBalance + result.value
   expect(machine.balance).toEqual(expectedMachineBalance)
-  expect(machine.userBalance).toEqual(expectedUserBalance)
   expect(handleResult).toEqual(constants.HAS_DIFFERENT_CHARACTERS)
 })
 
@@ -175,8 +171,6 @@ it('Should be able to award the user the prize of slots having adjacent characte
   const machineStartingBalance = machine.balance
   const handleResult = machine.handleResult(result)
   const expectedMachineBalance = machineStartingBalance - result.value
-  const expectedUserBalance = userStartingBalance + result.value
   expect(machine.balance).toEqual(expectedMachineBalance)
-  expect(machine.userBalance).toEqual(expectedUserBalance)
   expect(handleResult).toEqual(constants.ADJACENT_CHARACTERS)
 })

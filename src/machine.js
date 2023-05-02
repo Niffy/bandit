@@ -22,11 +22,14 @@ export class Machine {
       if (canSubtract) {
         // Take the money from the machine and give it to the user
         this.machineBalanceSubtract(result.value)
-        this.userBalanceAdd(result.value)
         return result.result
       } else {
         // Uh no, the machine does not have enough balance to payout
-
+        // How much is the machine short by?
+        const short = result.value - this.balance
+        const difference = short / costPerPlay
+        this.machineBalanceSubtract(this.balance)
+        this.userBalanceAdd(difference)
       }
     } else {
       return constants.NO_RESULT
