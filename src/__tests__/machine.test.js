@@ -203,3 +203,9 @@ it('Should reward the user free plays when machine balance is 1000', () => {
   expect(machine.userBalance).toEqual(expectedUserBalance)
   expect(machine.balance).toEqual(expectedMachineBalance)
 })
+
+it('Should return a result', () => {
+  const machine = new Machine(100)
+  const result = machine.execute()
+  expect(result).toBeDefined()
+})

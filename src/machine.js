@@ -129,6 +129,7 @@ export class Machine {
       const ruleResult = checkSlots(slots)
       // Go and handle the result and do any extra processing such as awarding money or increasing balance
       const result = this.handleResult(ruleResult)
+      return result
     } else {
       return constants.USER_BALANCE_ZERO
     }
