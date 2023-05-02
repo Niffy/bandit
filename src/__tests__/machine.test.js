@@ -1,5 +1,7 @@
 import { Machine } from '../machine'
 import { constants } from '../constants'
+import { rules } from '../rules'
+
 it('Should have an inital machine balance of £20', () => {
   const machine = new Machine()
   expect(machine.balance).toEqual(2000)
@@ -138,4 +140,40 @@ it('Should not be able to subtract all of the machine balance' + 10, () => {
   const machine = new Machine()
   const subtract = machine.balance + 10
   expect(machine.machineBalanceSubtract(subtract)).toEqual(false)
+})
+
+it('Should be able to award the user the prize of all slots being the same character', () => {
+  const result = rules.HAS_SAME_CHARACTERS
+  const userStartingBalance = 0
+  const machine = new Machine(userStartingBalance)
+  const machineStartingBalance = machine.balance
+  machine.handleResult(result)
+  const expectedMachineBalance = machineStartingBalance - result.value
+  const expectedUserBalance = userStartingBalance + result.value
+  expect(machine.balance).toEqual(expectedMachineBalance)
+  expect(machine.userBalance).toEqual(expectedUserBalance)
+})
+
+it('Should be able to award the user the prize of all slots being a different character', () => {
+  const result = rules.HAS_DIFFERENT_CHARACTERS
+  const userStartingBalance = 0
+  const machine = new Machine(userStartingBalance)
+  const machineStartingBalance = machine.balance
+  machine.handleResult(result)
+  const expectedMachineBalance = machineStartingBalance - result.value
+  const expectedUserBalance = userStartingBalance + result.value
+  expect(machine.balance).toEqual(expectedMachineBalance)
+  expect(machine.userBalance).toEqual(expectedUserBalance)
+})
+
+it('Should be able to award the user the prize of slots having adjacent character', () => {
+  const result = rules.ADJACENT_CHARACTERS
+  const userStartingBalance = 0
+  const machine = new Machine(userStartingBalance)
+  const machineStartingBalance = machine.balance
+  machine.handleResult(result)
+  const expectedMachineBalance = machineStartingBalance - result.value
+  const expectedUserBalance = userStartingBalance + result.value
+  expect(machine.balance).toEqual(expectedMachineBalance)
+  expect(machine.userBalance).toEqual(expectedUserBalance)
 })
