@@ -1,5 +1,5 @@
 import { Machine } from '../machine'
-import { constants } from '../constants'
+import { constants, costPerPlay } from '../constants'
 import { rules } from '../rules'
 
 it('Should have an inital machine balance of £20', () => {
@@ -151,6 +151,7 @@ it('Should be able to award the user the prize of all slots being the same chara
   const expectedMachineBalance = machineStartingBalance - result.value
   expect(machine.balance).toEqual(expectedMachineBalance)
   expect(handleResult.result).toEqual(constants.HAS_SAME_CHARACTERS)
+  expect(handleResult.payout).toEqual(rules.HAS_SAME_CHARACTERS.value)
 })
 
 it('Should be able to award the user the prize of all slots being a different character', () => {
@@ -162,6 +163,7 @@ it('Should be able to award the user the prize of all slots being a different ch
   const expectedMachineBalance = machineStartingBalance - result.value
   expect(machine.balance).toEqual(expectedMachineBalance)
   expect(handleResult.result).toEqual(constants.HAS_DIFFERENT_CHARACTERS)
+  expect(handleResult.payout).toEqual(rules.HAS_DIFFERENT_CHARACTERS.value)
 })
 
 it('Should be able to award the user the prize of slots having adjacent character', () => {
@@ -173,4 +175,31 @@ it('Should be able to award the user the prize of slots having adjacent characte
   const expectedMachineBalance = machineStartingBalance - result.value
   expect(machine.balance).toEqual(expectedMachineBalance)
   expect(handleResult.result).toEqual(constants.ADJACENT_CHARACTERS)
+  expect(handleResult.payout).toEqual(rules.ADJACENT_CHARACTERS.value)
+})
+
+it('Should reward the user free plays when machine balance is 0', () => {
+  const machine = new Machine(0)
+  machine.balance = 0
+  const result = rules.HAS_SAME_CHARACTERS
+  const expectedUserBalance = rules.HAS_SAME_CHARACTERS.value / costPerPlay
+  const expectedMachineBalance = 0
+  const handleResult = machine.handleResult(result)
+  expect(handleResult.result).toEqual(constants.MACHINE_BALANCE_LOW)
+  expect(machine.userBalance).toEqual(expectedUserBalance)
+  expect(machine.balance).toEqual(expectedMachineBalance)
+})
+
+it('Should reward the user free plays when machine balance is 1000', () => {
+  const machine = new Machine(0)
+  machine.balance = 1000
+  const short = rules.HAS_SAME_CHARACTERS.value - 1000
+  const difference = short / costPerPlay
+  const result = rules.HAS_SAME_CHARACTERS
+  const expectedUserBalance = difference
+  const expectedMachineBalance = 0
+  const handleResult = machine.handleResult(result)
+  expect(handleResult.result).toEqual(constants.MACHINE_BALANCE_LOW)
+  expect(machine.userBalance).toEqual(expectedUserBalance)
+  expect(machine.balance).toEqual(expectedMachineBalance)
 })
