@@ -20,9 +20,12 @@ export class Machine {
     if (result.value) {
       const canSubtract = this.canSubtractBalance(result.value)
       if (canSubtract) {
-
+        // Take the money from the machine and give it to the user
+        this.machineBalanceSubtract(result.value)
+        this.userBalanceAdd(result.value)
       } else {
-        //
+        // Uh no, the machine does not have enough balance to payout
+
       }
     } else {
       return constants.NO_RESULT
@@ -42,15 +45,48 @@ export class Machine {
   }
 
   /**
+   * Subtract an amount from the machine balance
+   * @param {Number} amount Amount to subtract
+   * @returns {Boolean} True if its able to subtract, false if not
+   */
+  machineBalanceSubtract (amount) {
+    if (this.balance < amount) {
+      return false
+    }
+    this.balance -= amount
+    return true
+  }
+
+  /**
+   * Add an amount to the machine balance
+   * @param {Nunber} amount Amount to add
+   */
+  machineBalanceAdd (amount) {
+    // Protect against negative values
+    if (amount < 0) return
+    this.balance += amount
+  }
+
+  /**
    * Handle subtracting the cost of play from the users
    * @returns {Boolean} if the subtraction worked
    */
-  userSubtract () {
+  userBalanceSubtract () {
     if (this.userBalance < costPerPlay) {
       return false
     }
     this.userBalance -= costPerPlay
     return true
+  }
+
+  /**
+   * Add an amount to the user balance
+   * @param {Number} amount Amount to add to user balance
+   */
+  userBalanceAdd (amount) {
+    // Protect against negative values
+    if (amount < 0) return
+    this.userBalance += amount
   }
 
   /**
@@ -80,7 +116,7 @@ export class Machine {
     // Determine the user has enough credit to play
     if (this.canExecute()) {
       // Go and do the subtraction from the user balance
-      this.userSubtract()
+      this.userBalanceSubtract()
       // Get the random slots
       const slots = getRandomSlots()
       // Check the result
