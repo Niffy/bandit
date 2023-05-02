@@ -23,6 +23,7 @@ export class Machine {
         // Take the money from the machine and give it to the user
         this.machineBalanceSubtract(result.value)
         this.userBalanceAdd(result.value)
+        return result.result
       } else {
         // Uh no, the machine does not have enough balance to payout
 
