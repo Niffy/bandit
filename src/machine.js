@@ -22,6 +22,7 @@ export class Machine {
       if (canSubtract) {
         // Take the money from the machine and give it to the user
         this.machineBalanceSubtract(result.value)
+        this.userBalanceAdd(result.value)
         return { result: result.result, payout: result.value }
       } else {
         // Uh no, the machine does not have enough balance to payout
@@ -129,9 +130,10 @@ export class Machine {
       const ruleResult = checkSlots(slots)
       // Go and handle the result and do any extra processing such as awarding money or increasing balance
       const result = this.handleResult(ruleResult)
+      result.slots = slots
       return result
     } else {
-      return constants.USER_BALANCE_ZERO
+      return { result: constants.USER_BALANCE_ZERO }
     }
   }
 }

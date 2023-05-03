@@ -1,7 +1,7 @@
 /**
  * The options for the slot machine reel
  */
-import { reelOptions } from './reel'
+import { reelOptions } from './reel.js'
 
 /**
  * Return a number between 0 and 4

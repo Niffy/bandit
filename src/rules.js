@@ -1,4 +1,4 @@
-import { constants, costPerPlay } from './constants'
+import { constants, costPerPlay } from './constants.js'
 /**
  * Rules that can be run
  */
